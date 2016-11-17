@@ -15,7 +15,7 @@ diff --git a/rules.mk b/rules.mk
 index 990790b..17a629e 100644
 --- a/rules.mk
 +++ b/rules.mk
-@@ -152,6 +152,7 @@ endif
+@@ -154,6 +152,7 @@ endif
  export PATH:=$(TARGET_PATH)
  export STAGING_DIR
  export GCC_HONOUR_COPTS:=0
