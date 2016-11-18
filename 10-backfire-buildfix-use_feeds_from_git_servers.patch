@@ -1,0 +1,14 @@
+diff --git a/feeds.conf.default b/feeds.conf.default
+index ea7d1ea..5f0efb8 100644
+--- a/feeds.conf.default
++++ b/feeds.conf.default
+@@ -1,6 +1,6 @@
+-src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_10.03.2 svn://svn.openwrt.org/openwrt/packages
+-src-svn xwrt http://x-wrt.googlecode.com/svn/branches/backfire_10.03/package
+-src-svn luci http://svn.luci.subsignal.org/luci/branches/luci-0.10/contrib/package
++src-git packages git://git.openwrt.org/10.03/packages.git
++#src-svn xwrt http://x-wrt.googlecode.com/svn/branches/backfire_10.03/package
++src-git luci https://github.com/openwrt/luci.git;luci-0.10
+ #src-svn phone svn://svn.openwrt.org/openwrt/feeds/phone
+ #src-svn efl svn://svn.openwrt.org/openwrt/feeds/efl
+ #src-svn desktop svn://svn.openwrt.org/openwrt/feeds/desktop
