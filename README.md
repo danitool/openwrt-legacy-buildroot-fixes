@@ -9,4 +9,4 @@ distros (using gcc version 5.x)
     `./patch-br.sh`
 4. Configure Openwrt with menus, save and make the world
 
-Tested with brcm63xx and TI AR7 targets.
+Tested with brcm-2.4, brcm63xx and TI AR7 targets.
