@@ -1,0 +1,66 @@
+diff --git a/toolchain/gcc/Makefile b/toolchain/gcc/Makefile
+index ba0feb7..40d6f57 100644
+--- a/toolchain/gcc/Makefile
++++ b/toolchain/gcc/Makefile
+@@ -86,6 +86,12 @@ GCC_CONFIGURE:= \
+ 		$(call qstrip,$(CONFIG_EXTRA_GCC_CONFIG_OPTIONS)) \
+ 		$(if $(CONFIG_GCC_VERSION_4_3_3_CS),--enable-poison-system-directories)
+ 
++ifeq ($(CONFIG_GCC_VERSION_3_4_6),)
++  GCC_CONFIGURE+= \
++		CFLAGS=-fgnu89-inline \
++		CXXFLAGS=-fgnu89-inline
++endif
++
+ ifneq ($(CONFIG_GCC_VERSION_4_3)$(CONFIG_GCC_VERSION_4_4),)
+   GCC_BUILD_TARGET_LIBGCC:=y
+   GCC_CONFIGURE+= \
+diff --git a/toolchain/gcc/patches/3.4.6/950-cfns-fix-mismatch-in-gnu_inline-attributes.patch b/toolchain/gcc/patches/3.4.6/950-cfns-fix-mismatch-in-gnu_inline-attributes.patch
+new file mode 100644
+index 0000000..ca18922
+--- /dev/null
++++ b/toolchain/gcc/patches/3.4.6/950-cfns-fix-mismatch-in-gnu_inline-attributes.patch
+@@ -0,0 +1,43 @@
++--- a/gcc/cp/cfns.gperf
+++++ b/gcc/cp/cfns.gperf
++@@ -5,6 +5,9 @@
++ static unsigned int hash (const char *, unsigned int);
++ #ifdef __GNUC__
++ __inline
+++#if defined __GNUC_STDC_INLINE__ || defined __GNUC_GNU_INLINE__
+++__attribute__ ((__gnu_inline__))
+++#endif
++ #endif
++ const char * libc_name_p (const char *, unsigned int);
++ %}
++--- a/gcc/cp/cfns.h
+++++ b/gcc/cp/cfns.h
++@@ -36,6 +36,9 @@
++ static unsigned int hash (const char *, unsigned int);
++ #ifdef __GNUC__
++ __inline
+++#if defined __GNUC_STDC_INLINE__ || defined __GNUC_GNU_INLINE__
+++__attribute__ ((__gnu_inline__))
+++#endif
++ #endif
++ const char * libc_name_p (const char *, unsigned int);
++ /* maximum key range = 391, duplicates = 0 */
++@@ -79,7 +82,7 @@
++       400, 400, 400, 400, 400, 400, 400, 400, 400, 400,
++       400, 400, 400, 400, 400, 400, 400
++     };
++-  register int hval = len;
+++  register int hval = (int)len;
++ 
++   switch (hval)
++     {
++@@ -107,6 +110,9 @@
++ 
++ #ifdef __GNUC__
++ __inline
+++#if defined __GNUC_STDC_INLINE__ || defined __GNUC_GNU_INLINE__
+++__attribute__ ((__gnu_inline__))
+++#endif
++ #endif
++ const char *
++ libc_name_p (register const char *str, register unsigned int len)
