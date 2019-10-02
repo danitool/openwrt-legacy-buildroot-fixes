@@ -1,0 +1,70 @@
+diff --git a/tools/mtd-utils/patches/mtdutils-sysmacros_error.patch b/tools/mtd-utils/patches/mtdutils-sysmacros_error.patch
+new file mode 100644
+index 0000000000..fc237a2388
+--- /dev/null
++++ b/tools/mtd-utils/patches/mtdutils-sysmacros_error.patch
+@@ -0,0 +1,38 @@
++--- a/mkfs.jffs2.c
+++++ b/mkfs.jffs2.c
++@@ -74,6 +74,7 @@
++ #undef crc32
++ #include "crc32.h"
++ #include "rbtree.h"
+++#include <sys/sysmacros.h>
++ 
++ #ifdef __CYGWIN__
++ #include <cygwin/ioctl.h>
++--- a/mkfs.ubifs/mkfs.ubifs.h
+++++ b/mkfs.ubifs/mkfs.ubifs.h
++@@ -25,6 +25,7 @@
++ 
++ #define _GNU_SOURCE
++ #define _LARGEFILE64_SOURCE
+++#include <sys/sysmacros.h>
++ #include <unistd.h>
++ #include <stdlib.h>
++ #include <stdio.h>
++@@ -35,6 +36,7 @@
++ #include <byteswap.h>
++ #include <linux/types.h>
++ #ifdef __linux__
+++#define llseek lseek64
++ #include <linux/fs.h>
++ #else
++ # ifndef O_LARGEFILE
++--- a/ubi-utils/include/libubi.h
+++++ b/ubi-utils/include/libubi.h
++@@ -27,6 +27,7 @@
++ #include <stdint.h>
++ #include <mtd/ubi-user.h>
++ #include <mtd/ubi-media.h>
+++#include <sys/sysmacros.h>
++ 
++ #ifdef __cplusplus
++ extern "C" {
+diff --git a/tools/squashfs4/patches/squashfs-sysmacros_error.patch b/tools/squashfs4/patches/squashfs-sysmacros_error.patch
+new file mode 100644
+index 0000000000..09baeecddc
+--- /dev/null
++++ b/tools/squashfs4/patches/squashfs-sysmacros_error.patch
+@@ -0,0 +1,20 @@
++--- a/squashfs-tools/mksquashfs.h
+++++ b/squashfs-tools/mksquashfs.h
++@@ -23,6 +23,7 @@
++  * mksquashfs.h
++  *
++  */
+++#include <sys/sysmacros.h>
++ 
++ #if __BYTE_ORDER == __BIG_ENDIAN
++ #define SQUASHFS_SWAP_SHORTS(s, d, n) swap_le16_num(s, d, n)
++--- a/squashfs-tools/unsquashfs.h
+++++ b/squashfs-tools/unsquashfs.h
++@@ -20,6 +20,7 @@
++  *
++  * unsquashfs.h
++  */
+++#include <sys/sysmacros.h>
++ 
++ #define TRUE 1
++ #define FALSE 0

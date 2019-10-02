@@ -9,8 +9,11 @@ distros (using gcc version 5.x)
     `./patch-br.sh`
 4. Configure Openwrt with menus, save and make the world
 
-Tested with targets:  
+Tested with gcc 5.x and targets:  
 * Atheros AR231x/AR5312
 * Broadcom brcm-2.4
 * Broadcom brcm63xx
 * TI AR7
+
+Tested with **gcc 9.1.0** (additional patches 12, 13, 14) and targets:  
+* Broadcom brcm63xx
