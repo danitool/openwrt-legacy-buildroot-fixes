@@ -1,0 +1,61 @@
+diff --git a/package/dnsmasq/Makefile b/package/dnsmasq/Makefile
+index 467c93494e..bfd9c77ce9 100644
+--- a/package/dnsmasq/Makefile
++++ b/package/dnsmasq/Makefile
+@@ -12,7 +12,7 @@ PKG_VERSION:=2.66
+ PKG_RELEASE:=2
+ 
+ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+-PKG_SOURCE_URL:=http://thekelleys.org.uk/dnsmasq
++PKG_SOURCE_URL:=http://thekelleys.org.uk/dnsmasq/archive
+ PKG_MD5SUM:=c5eb8fb88847a5e9bf18db67c74efd47
+ 
+ PKG_LICENSE:=GPLv2
+diff --git a/package/hotplug2/Makefile b/package/hotplug2/Makefile
+index 05134c23b1..e1056d4562 100644
+--- a/package/hotplug2/Makefile
++++ b/package/hotplug2/Makefile
+@@ -14,7 +14,8 @@ PKG_RELEASE:=4
+ 
+ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+ PKG_SOURCE_URL:=http://downloads.openwrt.org/sources/
+-PKG_MD5SUM:=7bab8ba67555a8400424f3c92ec67579
++#PKG_MD5SUM:=7bab8ba67555a8400424f3c92ec67579
++PKG_MD5SUM:=9a8e64f89558998bb824525105cdbe6b
+ 
+ include $(INCLUDE_DIR)/package.mk
+ 
+diff --git a/scripts/download.pl b/scripts/download.pl
+index 0e3d024098..9ad3782423 100755
+--- a/scripts/download.pl
++++ b/scripts/download.pl
+@@ -168,12 +168,14 @@ foreach my $mirror (@ARGV) {
+ 			push @extra, "$extra[0]/longterm/v$1";
+ 		}		
+ 		foreach my $dir (@extra) {
+-			push @mirrors, "ftp://ftp.all.kernel.org/pub/$dir";
+-			push @mirrors, "http://ftp.all.kernel.org/pub/$dir";
+-			push @mirrors, "ftp://ftp.de.kernel.org/pub/$dir";
+-			push @mirrors, "http://ftp.de.kernel.org/pub/$dir";
+-			push @mirrors, "ftp://ftp.fr.kernel.org/pub/$dir";
+-			push @mirrors, "http://ftp.fr.kernel.org/pub/$dir";
++			push @mirrors, "https://cdn.kernel.org/pub/$dir";
++			push @mirrors, "https://mirror.rackspace.com/kernel.org/pub/$dir";
++			push @mirrors, "https://download.xs4all.nl/ftp.kernel.org/pub/$dir";
++			push @mirrors, "https://mirrors.mit.edu/kernel/$dir";
++			push @mirrors, "http://ftp.nara.wide.ad.jp/pub/kernel.org/$dir";
++			push @mirrors, "http://www.ring.gr.jp/archives/linux/kernel.org/$dir";
++			push @mirrors, "ftp://ftp.riken.jp/Linux/kernel.org/$dir";
++			push @mirrors, "ftp://www.mirrorservice.org/sites/ftp.kernel.org/pub/$dir";
+ 		}
+     } elsif ($mirror =~ /^\@GNOME\/(.+)$/) {
+ 		push @mirrors, "http://ftp.gnome.org/pub/GNOME/sources/$1";
+@@ -197,6 +199,8 @@ foreach my $mirror (@ARGV) {
+ #push @mirrors, 'http://mirror1.openwrt.org';
+ push @mirrors, 'http://mirror2.openwrt.org/sources';
+ push @mirrors, 'http://downloads.openwrt.org/sources';
++push @mirrors, 'https://downloads.pangubox.com/sources';
++push @mirrors, 'https://source.codeaurora.org/mirrored_source/quic/qsdk/';
+ 
+ while (!$ok) {
+ 	my $mirror = shift @mirrors;
