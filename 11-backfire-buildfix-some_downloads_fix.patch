@@ -1,0 +1,44 @@
+diff --git a/scripts/download.pl b/scripts/download.pl
+index 912d21bb08..af1bd6cce2 100755
+--- a/scripts/download.pl
++++ b/scripts/download.pl
+@@ -142,12 +142,12 @@ foreach my $mirror (@ARGV) {
+ 			push @extra, "$extra[0]/longterm/v$1";
+ 		}		
+ 		foreach my $dir (@extra) {
+-			push @mirrors, "ftp://ftp.all.kernel.org/pub/$dir";
+-			push @mirrors, "http://ftp.all.kernel.org/pub/$dir";
+-			push @mirrors, "ftp://ftp.de.kernel.org/pub/$dir";
+-			push @mirrors, "http://ftp.de.kernel.org/pub/$dir";
+-			push @mirrors, "ftp://ftp.fr.kernel.org/pub/$dir";
+-			push @mirrors, "http://ftp.fr.kernel.org/pub/$dir";
++			push @mirrors, "https://download.xs4all.nl/ftp.kernel.org/pub/$dir";
++			push @mirrors, "https://mirrors.mit.edu/kernel/$dir";
++			push @mirrors, "http://ftp.nara.wide.ad.jp/pub/kernel.org/$dir";
++			push @mirrors, "http://www.ring.gr.jp/archives/linux/kernel.org/$dir";
++			push @mirrors, "ftp://ftp.riken.jp/Linux/kernel.org/$dir";
++			push @mirrors, "ftp://www.mirrorservice.org/sites/ftp.kernel.org/pub/$dir";
+ 		}
+     } elsif ($mirror =~ /^\@GNOME\/(.+)$/) {
+ 		push @mirrors, "http://ftp.gnome.org/pub/GNOME/sources/$1";
+diff --git a/toolchain/binutils/Makefile b/toolchain/binutils/Makefile
+index a3ce789cc6..cd5f19ce9b 100644
+--- a/toolchain/binutils/Makefile
++++ b/toolchain/binutils/Makefile
+@@ -10,14 +10,14 @@ PKG_NAME:=binutils
+ PKG_VERSION:=$(call qstrip,$(CONFIG_BINUTILS_VERSION))
+ BIN_VERSION:=$(PKG_VERSION)
+ 
+-PKG_SOURCE_URL:=http://mirror2.openwrt.org/sources
++PKG_SOURCE_URL:=http://ftp.gnu.org/gnu/binutils
+ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.bz2
+ 
+ ifeq ($(PKG_VERSION),2.18)
+   PKG_MD5SUM:=9d22ee4dafa3a194457caf4706f9cf01
+ endif
+ ifeq ($(PKG_VERSION),2.19.1)
+-  PKG_MD5SUM:=09a8c5821a2dfdbb20665bc0bd680791
++  PKG_MD5SUM:=023222f392e9546bcbb0b4c0960729be
+ endif
+ ifeq ($(PKG_VERSION),2.20.1)
+   PKG_MD5SUM:=9cdfb9d6ec0578c166d3beae5e15c4e5
