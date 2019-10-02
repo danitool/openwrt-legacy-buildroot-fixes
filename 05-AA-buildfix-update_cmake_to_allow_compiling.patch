@@ -1,0 +1,118 @@
+diff --git a/tools/cmake/Makefile b/tools/cmake/Makefile
+index efcca4391b..b71f1af626 100644
+--- a/tools/cmake/Makefile
++++ b/tools/cmake/Makefile
+@@ -1,5 +1,5 @@
+ #
+-# Copyright (C) 2006-2013 OpenWrt.org
++# Copyright (C) 2006-2015 OpenWrt.org
+ #
+ # This is free software, licensed under the GNU General Public License v2.
+ # See /LICENSE for more information.
+@@ -7,11 +7,12 @@
+ include $(TOPDIR)/rules.mk
+ 
+ PKG_NAME:=cmake
+-PKG_VERSION:=2.8.12
++PKG_VERSION:=3.3.2
+ 
+ PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
+-PKG_SOURCE_URL:=http://www.cmake.org/files/v2.8/
+-PKG_MD5SUM:=105bc6d21cc2e9b6aff901e43c53afea
++PKG_SOURCE_URL:=http://www.cmake.org/files/v3.3/ \
++		https://fossies.org/linux/misc/
++PKG_MD5SUM:=5febbd11bcaac854a27eebaf4a124be2
+ 
+ HOST_BUILD_PARALLEL:=1
+ HOST_CONFIGURE_PARALLEL:=1
+diff --git a/tools/cmake/patches/100-disable_qt_tests.patch b/tools/cmake/patches/100-disable_qt_tests.patch
+index 3d44dac53f..deaa5ae48c 100644
+--- a/tools/cmake/patches/100-disable_qt_tests.patch
++++ b/tools/cmake/patches/100-disable_qt_tests.patch
+@@ -1,8 +1,8 @@
+ --- a/Tests/RunCMake/CMakeLists.txt
+ +++ b/Tests/RunCMake/CMakeLists.txt
+-@@ -101,16 +101,6 @@
+- add_RunCMake_test(TargetPolicies)
+- add_RunCMake_test(alias_targets)
++@@ -160,15 +160,6 @@
++ add_RunCMake_test(no_install_prefix)
++ add_RunCMake_test(configure_file)
+  
+ -find_package(Qt4 QUIET)
+ -find_package(Qt5Core QUIET)
+@@ -10,21 +10,20 @@
+ -  add_RunCMake_test(IncompatibleQt)
+ -endif()
+ -if (QT4_FOUND)
+--  set(ObsoleteQtMacros_ARGS -DQT_QMAKE_EXECUTABLE:FILEPATH=${QT_QMAKE_EXECUTABLE})
+--  add_RunCMake_test(ObsoleteQtMacros)
++-  add_RunCMake_test(ObsoleteQtMacros -DQT_QMAKE_EXECUTABLE:FILEPATH=${QT_QMAKE_EXECUTABLE})
+ -endif()
+ -
+- if("${CMAKE_TEST_GENERATOR}" MATCHES "Visual Studio [^6]")
+-   add_RunCMake_test(include_external_msproject)
+-   add_RunCMake_test(SolutionGlobalSections)
++ find_package(PkgConfig QUIET)
++ if(PKG_CONFIG_FOUND)
++   add_RunCMake_test(FindPkgConfig)
+ --- a/Tests/CMakeLists.txt
+ +++ b/Tests/CMakeLists.txt
+-@@ -262,10 +262,6 @@
++@@ -358,10 +358,6 @@
+  
+    list(APPEND TEST_BUILD_DIRS ${CMake_TEST_INSTALL_PREFIX})
+  
+ -  if(NOT QT4_FOUND)
+--    find_package(Qt4)
++-    find_package(Qt4 QUIET)
+ -  endif()
+ -
+    if(QT4_FOUND)
+diff --git a/tools/cmake/patches/110-bsd.patch b/tools/cmake/patches/110-bsd.patch
+new file mode 100644
+index 0000000000..458c70d9a3
+--- /dev/null
++++ b/tools/cmake/patches/110-bsd.patch
+@@ -0,0 +1,41 @@
++From 6eab64c3adc7a38c322cd4d9a1a1881f2d49cb9c Mon Sep 17 00:00:00 2001
++From: Raphael Kubo da Costa <rakuco@FreeBSD.org>
++Date: Tue, 15 Oct 2013 00:10:56 +0300
++Subject: [PATCH] SystemInformation: Include backtrace-related headers on
++ FreeBSD
++
++This was probably broken for a long while, but the problem was not apparent
++because the check for execinfo.h would fail by default because
++-I/usr/local/include was not being passed to the compiler when making the
++checks for the header's existence.
++
++Now that very recent FreeBSD versions (ie. 10-CURRENT) have NetBSD's
++libexecinfo in base (and it is thus installed into /usr), the
++backtrace-related checks would pass, but the required headers were not being
++included in SystemInformation.cxx.
++
++Change-Id: I3b91ed7ac0e6878035aee202b3336c536cc6d2ff
++---
++ Source/kwsys/SystemInformation.cxx |    9 +++++++++
++ 1 file changed, 9 insertions(+)
++
++diff --git a/Source/kwsys/SystemInformation.cxx b/Source/kwsys/SystemInformation.cxx
++index 7c31f3a..2672730 100644
++--- a/Source/kwsys/SystemInformation.cxx
+++++ b/Source/kwsys/SystemInformation.cxx
++@@ -91,6 +91,15 @@ typedef int siginfo_t;
++ #  include <ifaddrs.h>
++ #  define KWSYS_SYSTEMINFORMATION_IMPLEMENT_FQDN
++ # endif
+++# if defined(KWSYS_SYSTEMINFORMATION_HAS_BACKTRACE)
+++#  include <execinfo.h>
+++#  if defined(KWSYS_SYSTEMINFORMATION_HAS_CPP_DEMANGLE)
+++#    include <cxxabi.h>
+++#  endif
+++#  if defined(KWSYS_SYSTEMINFORMATION_HAS_SYMBOL_LOOKUP)
+++#    include <dlfcn.h>
+++#  endif
+++# endif
++ #endif
++ 
++ #if defined(__OpenBSD__) || defined(__NetBSD__)

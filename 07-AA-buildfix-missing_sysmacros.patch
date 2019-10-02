@@ -1,0 +1,121 @@
+diff --git a/tools/e2fsprogs/patches/e2fsprogs-sysmacros.patch b/tools/e2fsprogs/patches/e2fsprogs-sysmacros.patch
+new file mode 100644
+index 0000000000..015910ac58
+--- /dev/null
++++ b/tools/e2fsprogs/patches/e2fsprogs-sysmacros.patch
+@@ -0,0 +1,55 @@
++--- a/lib/blkid/devname.c
+++++ b/lib/blkid/devname.c
++@@ -39,7 +39,7 @@
++ #include <time.h>
++ 
++ #include "blkidP.h"
++-
+++#include <sys/sysmacros.h>
++ /*
++  * Find a dev struct in the cache by device name, if available.
++  *
++--- a/lib/blkid/devno.c
+++++ b/lib/blkid/devno.c
++@@ -33,7 +33,7 @@
++ #endif
++ 
++ #include "blkidP.h"
++-
+++#include <sys/sysmacros.h>
++ char *blkid_strndup(const char *s, int length)
++ {
++ 	char *ret;
++--- a/lib/blkid/probe.c
+++++ b/lib/blkid/probe.c
++@@ -36,7 +36,7 @@
++ #include "blkidP.h"
++ #include "uuid/uuid.h"
++ #include "probe.h"
++-
+++#include <sys/sysmacros.h>
++ static int figure_label_len(const unsigned char *label, int len)
++ {
++ 	const unsigned char *end = label + len - 1;
++--- a/lib/blkid/save.c
+++++ b/lib/blkid/save.c
++@@ -26,7 +26,7 @@
++ #include <errno.h>
++ #endif
++ #include "blkidP.h"
++-
+++#include <sys/sysmacros.h>
++ static int save_dev(blkid_dev dev, FILE *file)
++ {
++ 	struct list_head *p;
++--- a/lib/ext2fs/finddev.c
+++++ b/lib/ext2fs/finddev.c
++@@ -35,7 +35,7 @@
++ #include "ext2_fs.h"
++ #include "ext2fs.h"
++ #include "ext2fsP.h"
++-
+++#include <sys/sysmacros.h>
++ struct dir_list {
++ 	char	*name;
++ 	struct dir_list *next;
+diff --git a/tools/mtd-utils/patches/mtdutils-sysmacros.patch b/tools/mtd-utils/patches/mtdutils-sysmacros.patch
+new file mode 100644
+index 0000000000..f060ab1699
+--- /dev/null
++++ b/tools/mtd-utils/patches/mtdutils-sysmacros.patch
+@@ -0,0 +1,28 @@
++--- a/include/common.h	2019-10-01 20:48:53.000000000 +0200
+++++ b/include/common.h	2019-10-01 22:04:14.434938130 +0200
++@@ -25,6 +25,7 @@
++ #include <string.h>
++ #include <fcntl.h>
++ #include <errno.h>
+++#include <sys/sysmacros.h>
++ 
++ #ifndef PROGRAM_NAME
++ # error "You must define PROGRAM_NAME before including this header"
++--- a/mkfs.ubifs/mkfs.ubifs.h	2019-10-01 22:13:14.000000000 +0200
+++++ b/mkfs.ubifs/mkfs.ubifs.h	2019-10-01 22:14:00.000000000 +0200
++@@ -36,6 +36,7 @@
++ #include <linux/types.h>
++ #ifdef __linux__
++ #include <linux/fs.h>
+++#define llseek lseek64
++ #else
++ # ifndef O_LARGEFILE
++ #  define O_LARGEFILE 0
++@@ -54,6 +55,7 @@
++ #include <ctype.h>
++ #include <uuid/uuid.h>
++ #include <sys/file.h>
+++#include <sys/sysmacros.h>
++ 
++ #include "libubi.h"
++ #include "defs.h"
+diff --git a/tools/squashfs4/patches/squashfs-sysmacros.patch b/tools/squashfs4/patches/squashfs-sysmacros.patch
+new file mode 100644
+index 0000000000..861931743d
+--- /dev/null
++++ b/tools/squashfs4/patches/squashfs-sysmacros.patch
+@@ -0,0 +1,20 @@
++--- a/squashfs-tools/mksquashfs.h
+++++ b/squashfs-tools/mksquashfs.h
++@@ -23,6 +23,7 @@
++  * mksquashfs.h
++  *
++  */
+++#include <sys/sysmacros.h>
++ 
++ #if __BYTE_ORDER == __BIG_ENDIAN
++ #define SQUASHFS_SWAP_SHORTS(s, d, n) swap_le16_num(s, d, n)
++--- a/squashfs-tools/unsquashfs.h
+++++ b/squashfs-tools/unsquashfs.h
++@@ -44,6 +44,7 @@
++ #include <math.h>
++ #include <sys/ioctl.h>
++ #include <sys/time.h>
+++#include <sys/sysmacros.h>
++ 
++ #ifndef linux
++ #ifndef __CYGWIN__
