@@ -1,0 +1,13 @@
+diff --git a/tools/squashfs4/patches/110-lzma.patch b/tools/squashfs4/patches/110-lzma.patch
+index 1a86e05857..46098a660e 100644
+--- a/tools/squashfs4/patches/110-lzma.patch
++++ b/tools/squashfs4/patches/110-lzma.patch
+@@ -323,7 +323,7 @@ diff -Nur squashfs4.0/squashfs-tools/Makefile squashfs4.0-lzma-snapshot/squashfs
+ +	unsquash-4.o swap.o compressor.o gzip_wrapper.o
+  
+ -CFLAGS := -I$(INCLUDEDIR) -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_GNU_SOURCE -O2
+-+CFLAGS = $(INCLUDEDIR) -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
+++CFLAGS = -fgnu89-inline $(INCLUDEDIR) -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
+ +	-D_GNU_SOURCE -DCOMP_DEFAULT=\"$(COMP_DEFAULT)\" -O2 -Wall
+  
+ +ifdef LZMA_SUPPORT
