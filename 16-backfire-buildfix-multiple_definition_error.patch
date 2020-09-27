@@ -1,0 +1,28 @@
+diff --git a/toolchain/binutils/Makefile b/toolchain/binutils/Makefile
+index 0073900816..2d8754213a 100644
+--- a/toolchain/binutils/Makefile
++++ b/toolchain/binutils/Makefile
+@@ -31,6 +31,7 @@ include $(INCLUDE_DIR)/toolchain-build.mk
+ 
+ BINUTILS_CONFIGURE:= \
+ 	./configure \
++		CFLAGS=-fcommon \
+ 		--prefix=$(TOOLCHAIN_DIR) \
+ 		--build=$(GNU_HOST_NAME) \
+ 		--host=$(GNU_HOST_NAME) \
+diff --git a/tools/squashfs/patches/Makefile.patch b/tools/squashfs/patches/Makefile.patch
+new file mode 100644
+index 0000000..4076f56
+--- /dev/null
++++ b/tools/squashfs/patches/Makefile.patch
+@@ -0,0 +1,10 @@
++--- a/squashfs-tools/Makefile
+++++ b/squashfs-tools/Makefile
++@@ -1,6 +1,6 @@
++ INCLUDEDIR = .
++ 
++-CFLAGS := -I$(INCLUDEDIR) -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -O2
+++CFLAGS := -fcommon -I$(INCLUDEDIR) -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -O2
++ 
++ all: mksquashfs unsquashfs
++ 

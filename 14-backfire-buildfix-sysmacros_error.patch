@@ -68,3 +68,19 @@ index 0000000000..09baeecddc
 + 
 + #define TRUE 1
 + #define FALSE 0
+diff --git a/tools/squashfs/patches/squashfs-sysmacros_error.patch b/tools/squashfs/patches/squashfs-sysmacros_error.patch
+new file mode 100644
+index 0000000..864d044
+--- /dev/null
++++ b/tools/squashfs/patches/squashfs-sysmacros_error.patch
+@@ -0,0 +1,10 @@
++--- a/squashfs-tools/squashfs_fs.h
+++++ b/squashfs-tools/squashfs_fs.h
++@@ -23,6 +23,7 @@
++  *
++  * squashfs_fs.h
++  */
+++#include <sys/sysmacros.h>
++ 
++ #define SQUASHFS_MAJOR			3
++ #define SQUASHFS_MINOR			0
