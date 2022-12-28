@@ -29,6 +29,10 @@ diff --git a/scripts/download.pl b/scripts/download.pl
 index 0e3d024098..9ad3782423 100755
 --- a/scripts/download.pl
 +++ b/scripts/download.pl
+diff --git a/scripts/download.pl b/scripts/download.pl
+index 0e3d024098..a43ecedd11 100755
+--- a/scripts/download.pl
++++ b/scripts/download.pl
 @@ -168,12 +168,14 @@ foreach my $mirror (@ARGV) {
  			push @extra, "$extra[0]/longterm/v$1";
  		}		
@@ -50,12 +54,13 @@ index 0e3d024098..9ad3782423 100755
  		}
      } elsif ($mirror =~ /^\@GNOME\/(.+)$/) {
  		push @mirrors, "http://ftp.gnome.org/pub/GNOME/sources/$1";
-@@ -197,6 +199,8 @@ foreach my $mirror (@ARGV) {
+@@ -197,6 +199,9 @@ foreach my $mirror (@ARGV) {
  #push @mirrors, 'http://mirror1.openwrt.org';
  push @mirrors, 'http://mirror2.openwrt.org/sources';
  push @mirrors, 'http://downloads.openwrt.org/sources';
 +push @mirrors, 'http://dev.gateworks.com/sources/';
 +push @mirrors, 'https://source.codeaurora.org/mirrored_source/quic/qsdk/';
++push @mirrors, 'http://dev.gateworks.com/sources/';
  
  while (!$ok) {
  	my $mirror = shift @mirrors;
