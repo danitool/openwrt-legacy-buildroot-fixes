@@ -1,5 +1,5 @@
 diff --git a/scripts/download.pl b/scripts/download.pl
-index 912d21bb08..af1bd6cce2 100755
+index 912d21bb08..a4b9c48c3a 100755
 --- a/scripts/download.pl
 +++ b/scripts/download.pl
 @@ -142,12 +142,12 @@ foreach my $mirror (@ARGV) {
@@ -21,6 +21,14 @@ index 912d21bb08..af1bd6cce2 100755
  		}
      } elsif ($mirror =~ /^\@GNOME\/(.+)$/) {
  		push @mirrors, "http://ftp.gnome.org/pub/GNOME/sources/$1";
+@@ -171,6 +171,7 @@ foreach my $mirror (@ARGV) {
+ #push @mirrors, 'http://mirror1.openwrt.org';
+ push @mirrors, 'http://mirror2.openwrt.org/sources';
+ push @mirrors, 'http://downloads.openwrt.org/sources';
++push @mirrors, 'http://dev.gateworks.com/sources/';
+ 
+ while (!$ok) {
+ 	my $mirror = shift @mirrors;
 diff --git a/toolchain/binutils/Makefile b/toolchain/binutils/Makefile
 index a3ce789cc6..cd5f19ce9b 100644
 --- a/toolchain/binutils/Makefile
