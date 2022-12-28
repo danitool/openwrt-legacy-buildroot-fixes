@@ -1,0 +1,23 @@
+diff --git a/tools/cmake/Makefile b/tools/cmake/Makefile
+index dbc2a7e124..fcc619ba38 100644
+--- a/tools/cmake/Makefile
++++ b/tools/cmake/Makefile
+@@ -14,5 +14,6 @@ PKG_SOURCE_URL:=http://www.cmake.org/files/v2.8/
+ PKG_MD5SUM:=a76a44b93acf5e3badda9de111385921
+ 
+ include $(INCLUDE_DIR)/host-build.mk
++export CXXFLAGS += -std=gnu++98
+ 
+ $(eval $(call HostBuild))
+diff --git a/tools/mklibs/Makefile b/tools/mklibs/Makefile
+index bd967217ea..bbc3da4e69 100644
+--- a/tools/mklibs/Makefile
++++ b/tools/mklibs/Makefile
+@@ -18,6 +18,7 @@ HOST_BUILD_DIR:=$(BUILD_DIR_HOST)/mklibs
+ include $(INCLUDE_DIR)/host-build.mk
+ 
+ HOST_CFLAGS += -I$(CURDIR)/include
++HOST_CFLAGS += -std=gnu++98
+ 
+ define Host/Install
+        $(INSTALL_BIN) \

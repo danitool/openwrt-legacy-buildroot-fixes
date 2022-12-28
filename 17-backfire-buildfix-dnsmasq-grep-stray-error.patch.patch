@@ -1,0 +1,21 @@
+diff --git a/package/dnsmasq/patches/dnsmasq-fix-grep-stray-error.patch.patch b/package/dnsmasq/patches/dnsmasq-fix-grep-stray-error.patch.patch
+new file mode 100644
+index 0000000000..5428126cce
+--- /dev/null
++++ b/package/dnsmasq/patches/dnsmasq-fix-grep-stray-error.patch.patch
+@@ -0,0 +1,15 @@
++--- a/bld/pkg-wrapper
+++++ b/bld/pkg-wrapper
++@@ -1,11 +1,11 @@
++ #!/bin/sh
++ 
++ search=$1
++ shift
++ 
++-if grep "^\#.*define.*$search" config.h 2>&1 >/dev/null || \
+++if grep "^#.*define.*$search" config.h 2>&1 >/dev/null || \
++    grep $search 2>&1 >/dev/null ; then
++   exec $*
++ fi
++ 
++ 

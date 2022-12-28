@@ -1,0 +1,17 @@
+diff --git a/tools/mkimage/patches/sha1-error.patch b/tools/mkimage/patches/sha1-error.patch
+new file mode 100644
+index 0000000000..a21b191cfe
+--- /dev/null
++++ b/tools/mkimage/patches/sha1-error.patch
+@@ -0,0 +1,11 @@
++--- a/lib_generic/sha1.c
+++++ b/lib_generic/sha1.c
++@@ -36,7 +36,7 @@
++ #include <string.h>
++ #endif /* USE_HOSTCC */
++ #include <watchdog.h>
++-#include "sha1.h"
+++#include "../include/sha1.h"
++ 
++ /*
++  * 32-bit integer manipulation macros (big endian)
