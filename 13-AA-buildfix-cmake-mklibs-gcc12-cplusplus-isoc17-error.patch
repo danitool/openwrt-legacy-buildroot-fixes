@@ -1,0 +1,24 @@
+diff --git a/tools/cmake/Makefile b/tools/cmake/Makefile
+index efcca4391b..7364663bea 100644
+--- a/tools/cmake/Makefile
++++ b/tools/cmake/Makefile
+@@ -17,6 +17,7 @@ HOST_BUILD_PARALLEL:=1
+ HOST_CONFIGURE_PARALLEL:=1
+ 
+ include $(INCLUDE_DIR)/host-build.mk
++export CXXFLAGS += -std=gnu++98
+ 
+ HOST_CONFIGURE_VARS :=
+ 
+diff --git a/tools/mklibs/Makefile b/tools/mklibs/Makefile
+index fd3d233c47..c6386ab356 100644
+--- a/tools/mklibs/Makefile
++++ b/tools/mklibs/Makefile
+@@ -16,6 +16,7 @@ PKG_MD5SUM:=afe0ed527ba96b8a882b5de350603007
+ include $(INCLUDE_DIR)/host-build.mk
+ 
+ HOST_CFLAGS += -I$(CURDIR)/include
++HOST_CPPFLAGS += -std=gnu++98
+ HOST_LDFLAGS += $(HOST_STATIC_LINKING)
+ 
+ define Host/Install
