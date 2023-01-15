@@ -1,14 +1,16 @@
 diff --git a/feeds.conf.default b/feeds.conf.default
-index 13adba7..3910106 100644
+index 13adba71e3..caa173d6a6 100644
 --- a/feeds.conf.default
 +++ b/feeds.conf.default
-@@ -1,6 +1,6 @@
+@@ -1,7 +1,7 @@
 -src-svn packages svn://svn.openwrt.org/openwrt/branches/packages_12.09
 -src-svn xwrt http://x-wrt.googlecode.com/svn/trunk/package
 -src-svn luci http://svn.luci.subsignal.org/luci/branches/luci-0.11/contrib/package
+-src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x
 +src-git packages git://git.archive.openwrt.org/12.09/packages.git
 +#src-svn xwrt http://x-wrt.googlecode.com/svn/trunk/package
 +src-git luci https://github.com/openwrt/luci.git;luci-0.11
- src-git routing git://github.com/openwrt-routing/packages.git;for-12.09.x
++src-git routing https://github.com/openwrt/routing.git;for-12.09.x
  #src-svn phone svn://svn.openwrt.org/openwrt/feeds/phone
  #src-svn efl svn://svn.openwrt.org/openwrt/feeds/efl
+ #src-svn xorg svn://svn.openwrt.org/openwrt/feeds/xorg
