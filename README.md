@@ -17,3 +17,7 @@ Tested with **gcc 5.x** and targets:
 
 Tested with **gcc 9.1.0** (additional patches 12, 13, 14) and targets:  
 * Broadcom brcm63xx
+
+Tested with **gcc 12.2.0** (additional patches 17, 18, 19) and targets:  
+* Broadcom brcm63xx
+* Infineon/ADMtek ADM5120
